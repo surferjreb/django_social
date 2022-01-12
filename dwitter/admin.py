@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User, Group
-from .models import Profile
+from .models import Dweet, Profile
 
 
 # Register your models here.
@@ -17,4 +17,5 @@ class UserAdmin(admin.ModelAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
+admin.site.register(Dweet)
 admin.site.unregister(Group)
