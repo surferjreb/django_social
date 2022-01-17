@@ -15,7 +15,7 @@
             </figure>
           </div>
           <div class="media-content">
-          {% if user.profile.is_valid %}
+          {% if user.is_authenticated %}
             <p class="title is-4">
                 Hello, {{ user.profile }}
             </p>
@@ -46,31 +46,54 @@
   <div class="column">
     {% if user.is_authenticated %}
       <a href="{% url 'logout' %}">Logout</a>
+      <div class="card">
+        <a href="{% url 'password_change' %}">Change password?</a>
+      </div>
     {% else %}
       <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'dwitter:register' %}">Register</a>
     {% endif %}
   </div>
 </div>
   <div class="column">
-      {% for followed in user.profile.follows.all %}
-          {% for dweet in followed.user.dweets.all %}
-              <div class="box">
-                  {{ dweet.body }}
-                  <span class="is-small has-text-grey-light">
-                      ({{ dweet.created_at }} by {{ dweet.user.username }})
-                  </span>
-              </div>
-          {% endfor %}
+      {% for dweet in dweets %}
+        <div class="box">
+          {{ dweet.body }}
+          <span class="is-small has-text-grey-light">
+            ({{ dweet.created_at }} by {{ dweet.user.username }})
+          </span>
+        </div>
       {% endfor %}
   </div>
-
+<!-- Dweet Form -->
   <div class="column is-one-third">
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button class="button is-info is-fullwidth is-medium mt-5"
-          type="submit">Dweet
+    <div class="block">
+    <a href="{% url 'dwitter:profile_list' %}">
+      <button class="button is-dark is-outlined is-fullwidth">
+        All Profiles
       </button>
-    </form>
+    </a>
+  </div>
+  <div class="block">
+    <a href="{% url 'dwitter:profile' request.user.profile.id %}">
+      <button class="button is-dark is-outlined is-fullwidth">
+        My Profile
+      </button>
+    </a>
+  </div>
+    <div class="block">
+      <div class="block">
+        <h2 class="title is-2">Add a Dweet</h2>
+      </div>
+      <div class="block">
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button class="button is-info is-fullwidth is-medium mt-5"
+              type="submit">Dweet
+          </button>
+        </form>
+      </div>
+    </div>
   </div>
 {% endblock content%}

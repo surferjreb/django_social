@@ -14,7 +14,27 @@
             <input type="submit" value="Login">
         </form>
     </div>
+    <div class="card">
+        <div class="card-content">
+            <p class="hero is-info is-4">
+                <a href="{% url 'password_reset' %}">
+                    Reset Password</a>
+            </p>
+            <p class="hero is-info is-4">
+                <a href="{% url 'dwitter:register' %}">
+                    Register</a>
+            </p>
+            <p class="hero is-info is-4">
+                <a href="{% url 'social:begin' 'github' %}">
+                    Register with Github</a>
+            </p>
+            <p class="hero is-info is-4">
+                <a href="{% url 'social:begin' 'google' %}">
+                    Register with Google</a>
+            </p>
+        </div>
 
+    </div>
   </div>
   </div
 {% endblock content %}
